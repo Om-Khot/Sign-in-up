@@ -1,10 +1,10 @@
 import axios from "axios";
 
 console.log("hi");
-console.log("backend url",import.meta.env.VITE_BACKEND_URL);
+console.log("backend url",import.meta.env.VITE_BACKENDURL);
 
 const axiosInstance = axios.create({
-    baseURL : import.meta.env.VITE_BACKEND_URL,
+    baseURL : import.meta.env.VITE_BACKENDURL,
     headers : {
         'Content-Type' : 'application/json'
     }
