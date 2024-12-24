@@ -28,6 +28,7 @@ function LoginCard({title}){
     const onSubmitHandler = async (e) =>{
         e.preventDefault();        
         try {
+            console.log("Trying to submit form")
             const response = await loginUser(formData);
             setToken(response.data.token);
             console.log("Login successfull",response.data);

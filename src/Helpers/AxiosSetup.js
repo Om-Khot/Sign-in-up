@@ -1,12 +1,13 @@
 import axios from "axios";
 
+console.log(import.meta.env.VITE_BACKEND_URL);
+
 const axiosInstance = axios.create({
-    baseURL : 'http://localhost:5500',
+    baseURL : import.meta.env.VITE_BACKEND_URL,
     headers : {
         'Content-Type' : 'application/json'
     }
 });
-
 axiosInstance.defaults.withCredentials = true;
 
 export default axiosInstance;

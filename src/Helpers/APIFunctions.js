@@ -7,6 +7,8 @@ export const registerUser = async (userData) =>{
 };
 
 export const loginUser = async (credentials) =>{
+    console.log("hi")
+    console.log(credentials);
     return await axiosInstance.post('/login',credentials);
 };
 
