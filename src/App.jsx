@@ -4,6 +4,7 @@ import LoginCard from './Components/Card/SignInCardCompo'
 import SignUpCard from './Components/Card/SignUpCardCompo'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './Pages/HomePage'
+import ResultPage from './Pages/ResultPage'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Route path='/' element={<HomePage/>}/>
         <Route path='/signin' element={<LoginCard title={"Sign in"}/>}/>
         <Route path='/signup' element={<SignUpCard title={"Sign Up"}/>}/>
+        <Route path='/result/:data' element={<ResultPage/>} />
       </Routes>
     </div>
     

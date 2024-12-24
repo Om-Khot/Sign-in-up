@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import Button from "../Buttons/ButtonCompo";
 import InputFeild from "../Inputs/InputCompo";
 import { Link } from "react-router-dom";
+import { registerUser } from "../../Helpers/APIFunctions";
+import { useNavigate } from "react-router-dom";
 
 function SignUpCard({title}){
 
     const [pageNo,setPageNo] = useState(0);
 
     const [formData,setFormData] = useState({
-        FirstName : "",
-        LastName : "",
-        Email: "",
-        Password: "",
-        ConfirmPass: ""
+        firstName : "",
+        lastName : "",
+        email: "",
+        password: "",
+        confirmPass: ""
     });
 
     useEffect(()=>{
@@ -29,9 +31,22 @@ function SignUpCard({title}){
         setFormData({...formData, [name] : value});
     }
 
+    const navigate = useNavigate();
     const handleSubmit = async (e) =>{
-        alert("Do you want to submit the form")
+        // alert("Do you want to submit the form");
+        e.preventDefault();
+        try {
+            const response = await registerUser(formData);
+            console.log("Response is :",response.data);
+            const msg = "Successfully created an account";
+            navigate(`/result/${msg}`);
+        } catch (error) {
+            console.error('Registration Error:', error.response.data.error);
+            const msg = error.response.data.error;
+            navigate(`/result/${msg}`);
+        }
     }
+
     return(
         <form>        
         <div className="shadow-md shadow-gray-600 border-slate-400 border-l-2 border-b-2 rounded-2xl sm: w-[80vw] h-[80vh]  md:w-[30vw] h-[70vh]">
@@ -46,8 +61,8 @@ function SignUpCard({title}){
             {pageNo == 0 && <div className="mt-10 flex justify-center">
                                 <InputFeild 
                                     type={"text"}
-                                    name={"FirstName"} 
-                                    value={formData.FirstName}  
+                                    name={"firstName"} 
+                                    value={formData.firstName}  
                                     placeholder={"First Name"} 
                                     isReq={true}
                                     onChangeHandler={handleChange}
@@ -57,8 +72,8 @@ function SignUpCard({title}){
             
             {pageNo == 0 && <div className="mt-5 flex justify-center">
                                 <InputFeild type={"text"} 
-                                    name={"LastName"} 
-                                    value={formData.LastName}  
+                                    name={"lastName"} 
+                                    value={formData.lastName}  
                                     placeholder={"Last Name"} 
                                     isReq={true}
                                     onChangeHandler={handleChange}
@@ -69,8 +84,8 @@ function SignUpCard({title}){
             {pageNo == 1 && <div className="mt-10 flex justify-center">
                                 <InputFeild 
                                     type={"email"} 
-                                    name={"Email"} 
-                                    value={formData.Email} 
+                                    name={"email"} 
+                                    value={formData.email} 
                                     placeholder={"Email"} 
                                     isReq={true}
                                     onChangeHandler={handleChange}
@@ -81,8 +96,8 @@ function SignUpCard({title}){
             {pageNo == 1 && <div className="mt-5 flex justify-center">
                                 <InputFeild 
                                     type={"password"} 
-                                    name={"Password"} 
-                                    value={formData.Password} 
+                                    name={"password"} 
+                                    value={formData.password} 
                                     placeholder={"Password"} 
                                     isReq={true}
                                     onChangeHandler={handleChange}
@@ -93,8 +108,8 @@ function SignUpCard({title}){
             {pageNo == 1 && <div className="mt-5 flex justify-center">
                                 <InputFeild 
                                     type={"password"} 
-                                    name={"ConfirmPass"} 
-                                    value={formData.ConfirmPass} 
+                                    name={"confirmPass"} 
+                                    value={formData.confirmPass} 
                                     placeholder={"Confirm password"} 
                                     isReq={true}
                                     onChangeHandler={handleChange}
